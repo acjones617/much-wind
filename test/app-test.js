@@ -1,2 +1,0 @@
-var ConductorSpace = {}; 
-var ClientSpace = {};
