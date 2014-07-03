@@ -1,0 +1,41 @@
+body {
+  background-color: black;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+#base {
+  width: 200px;
+  height: 200px;
+  position: fixed;
+  bottom: -23%;
+  left: 45%;
+  border-radius: 107px;
+  background-color: yellow;
+}
+
+.title {
+  position: fixed;
+  top: 25px;
+  right: 50px;
+  font-size: 70px;
+}
+
+footer {
+  position: fixed;
+  bottom: 25px;
+  right: 50px;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Gnuolane Regular', san-serif;
+  margin-top: 0;
+}
+
+@font-face {
+  font-family: 'Gnuolane Regular';
+  src: url("../fonts/gnuolane_regular/gnuolane_rg-webfont.eot");
+  src: url("../fonts/gnuolane_regular/gnuolane_rg-webfont.eot?iefix") format("eot"), url("../fonts/gnuolane_regular/gnuolane_rg-webfont.woff") format("woff"), url("../fonts/gnuolane_regular/gnuolane_rg-webfont.ttf") format("truetype"), url("../fonts/gnuolane_regular/gnuolane_rg-webfont.svg#webfontZam02nTh") format("svg");
+  font-weight: normal;
+  font-style: normal; }
