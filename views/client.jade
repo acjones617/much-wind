@@ -1,13 +1,13 @@
 doctype html
 html
   head
-    title Kine-Tech
+    title MURICA
     meta(name="viewport", content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0")
     meta(name="apple-mobile-web-app-capable", content="yes")
     meta(name="mobile-web-app-capable", content="yes")
     meta(name="apple-mobile-web-app-status-bar-style", content="black")
 
-    link(rel='stylesheet', href='/bower_components/normalize-css/normalize.css')
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css')
     link(rel='stylesheet', href='/stylesheets/client.css')
 
     link(rel="icon", type="image/png", href="images/icon.png")
@@ -15,119 +15,15 @@ html
     script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
     script(src="//cdnjs.cloudflare.com/ajax/libs/jquery-color/2.1.2/jquery.color.min.js")
     script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js")
-    script(src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js")
-    script(src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.4/handlebars.min.js")
     script(src="//cdnjs.cloudflare.com/ajax/libs/pusher/2.1.6/pusher.min.js")
 
-
   body
-
-    script#clientApp(type="text/x-handlebars-template")
-      div#container
-
-    script#index(type="text/x-handlebars-template")
+    div#container
       header
         p Blow harder
-        p.showTitle {{ currentShow }}
-      p.HR Created at Hack Reactor
 
-    script#show(type="text/x-handlebars-template")
-      button#exitShow Quit
-
-    script#shake(type="text/x-handlebars-template")
-      h1 Welcome to the show! 
-      h2 These interactive visualizations use your phone's gyroscope and accelerometer to influence what you see.
-      br
-      h3 Connecting...
-      button#toggleTracking Toggle tracking on/off
-      button#exitShow Quit
-
-    script#castList(type="text/x-handlebars-template")
-      h2 {{ currentShow }} cast and crew:
-      {{#each castMember}}
-      div.castMember
-        img(src="{{ portrait }}")
-        p.castName {{ name }}
-        p.role {{ role }}
-        p.bio {{ bio }}
-      {{/each}}
-      button.back Back
-
-
-    script#castMember(type="text/x-handlebars-template")
-      img(src="{{ portrait }}")
-      p.castName {{ name }}
-      p.role {{ role }}
-      p.bio {{ bio }}     
-
-    script#showsList(type="text/x-handlebars-template")
-      h1 Upcoming Events
-      h3 Click an event to find out more
-      {{#each upcoming}}
-      a(href="{{ link }}")
-        div
-          p.what {{ what }}
-          p When: {{ when }}
-          p Where: {{ where }}
-      {{/each}}
-      button.back Back
-
-    script#singleShow(type="text/x-handlebars-template")
-      a(href="{{ link }}")
-        div
-          p.what {{ title }}
-          p When: {{ showdate }}
-          p Where: {{ location }}
-          p {{ description }}
-
-    script#about(type="text/x-handlebars-template")
-      h1 About Kine-Tech
-      h2 @kine_tech
-      p.about-text We are a collaboration of dancers, programmers, tech/ media geniuses, choreographers, artists and physicists sharing our mutual passion for movement and technology.
-      p.about-text We meet in our media lab on Tuesday evenings at Kunstoff Arts in San Francisco. 
-      p.about-text Follow us for updates on our explorations, thoughts and adventures in the world of dance, movement and media.
-      img(src="images/kinetech-concept.gif")
-      button.back Back 
-
-    script.
-      var ClientSpace = {};
-      $(document).on('touchmove', '.scrollable', function(e) {
-        e.preventDefault();
-      });
-
-    script(src="javascript/client/models/Client.js")
-    script(src="javascript/client/models/Server.js")
-    script(src="javascript/client/models/CastMember.js")
-    script(src="javascript/client/models/Show.js")
-
-    script(src="javascript/client/collections/Cast.js")
-    script(src="javascript/client/collections/Shows.js")
-
-    script(src="javascript/client/views/ClientApp.js")
-    script(src="javascript/client/views/IndexView.js")
-    script(src="javascript/client/views/CastView.js")
-    script(src="javascript/client/views/CastMemberView.js")
-    script(src="javascript/client/views/AboutView.js")
-    script(src="javascript/client/views/UpcomingShowsView.js")
-    script(src="javascript/client/views/SingleShowView.js")
-    script(src="javascript/client/views/ShowView.js")
-    script(src="javascript/client/views/ShakeView.js")
-
-    script(src="javascript/client/router/router.js")
-  
     script.
       //var ClientSpace = {};
-      var client = new ClientSpace.Client();
-      client.set('cast', new ClientSpace.Cast());
-      client.set('shows', new ClientSpace.Shows());
-
-      var kineTemplates = {};
-      $("[type='text/x-handlebars-template']").each(function(index, div){
-          kineTemplates[div.id] = Handlebars.compile(div.innerHTML);
-      });
-      client.set('templates', kineTemplates);
-
-      var clientApp = new ClientSpace.ClientApp({ model: client });
       $('body').on('touchmove', '.scrollable', function(e) {
         e.stopPropagation();
       });
