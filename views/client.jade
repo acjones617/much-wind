@@ -11,13 +11,14 @@ html
     link(rel='stylesheet', href='/stylesheets/client.css')
 
     link(rel="icon", type="image/png", href="images/icon.png")
-    script(src="/socket.io/socket.io.js")
-    script(src="bower_components/jquery/jquery.min.js")
-    script(src="bower_components/jquery-color/jquery.color.js")
-    script(src="bower_components/underscore/underscore-min.js")
-    script(src="bower_components/backbone/backbone-min.js")
-    script(src="bower_components/handlebars/handlebars.js")
-    script(src="/javascript/pusher.color.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery-color/2.1.2/jquery.color.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.4/handlebars.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/pusher/2.1.6/pusher.min.js")
+
 
   body
 
@@ -26,13 +27,8 @@ html
 
     script#index(type="text/x-handlebars-template")
       header
-        p Welcome to
+        p Blow harder
         p.showTitle {{ currentShow }}
-      button.startShow Connect and Start Show
-      button.shakeShow Play with interactive visualizations!
-      button.cast Tonights Performers
-      button.about About Kine-Tech
-      button.upcomingShows Upcoming Events
       p.HR Created at Hack Reactor
 
     script#show(type="text/x-handlebars-template")
@@ -42,13 +38,6 @@ html
       h1 Welcome to the show! 
       h2 These interactive visualizations use your phone's gyroscope and accelerometer to influence what you see.
       br
-      //- h2 Shake-o-Meter: The more people that participate, the more fun it is! Beat the high score!
-      //- br
-      //- h2 Shake Battle: Shaking your phone right-side-up will lower the bar, and shaking it upside-down will raise it. Play with your friends and see who can shakedown the hardest!
-      //- br
-      //- h2 Spotlights: Point your phones display upwards, and tilt it to move the searchlights. Now you're playing with power!
-      //- br
-      //- h2 Have fun playing with them and experiencing the synthesis of tech and art!
       h3 Connecting...
       button#toggleTracking Toggle tracking on/off
       button#exitShow Quit
