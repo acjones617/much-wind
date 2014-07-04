@@ -178,9 +178,28 @@ html
               }
               ctx.stroke();
           });
+          projectile = Physics.body('circle', {
+              x: -20
+              ,y: viewHeight - 400
+              ,vx: 2
+              ,mass: 4
+              ,radius: 20
+              ,restitution: 0.99
+              ,angularVelocity: 0
+              ,label: 'bullet'
+              ,styles: {
+                  fillStyle: '#d33682'
+                  ,angleIndicator: '#751b4b'
+              }
+          });
 
           // add things to world
           world.add( cloth );
+
+          setTimeout(function() {
+            world.add( projectile );
+          }, 3000);
+
           world.add( rigidConstraints );
 
           // add some fun interaction
@@ -188,6 +207,8 @@ html
               order: 8,
               strength: 0.02
           });
+          window.attractor = attractor;
+          window.world = world;
           world.on({
               'interact:poke': function( pos ){
                   attractor.position( pos );
@@ -205,6 +226,7 @@ html
           world.add([
               Physics.behavior('interactive', { el: renderer.el, moveThrottle: 20 })
               ,Physics.behavior('constant-acceleration')
+              ,Physics.behavior('body-collision-detection')
               //,edgeBounce
           ]);
 
