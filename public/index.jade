@@ -24,12 +24,14 @@ html
       h1.title &#39;MURICA
       iframe(src="https://archive.org/embed/TheStarSpangledBannerInstrumental", width="500", height="30", frameborder="0", webkitallowfullscreen="true", mozallowfullscreen="true", allowfullscreen)
 
+    // img(src="images/fireworks.gif", width="800", height="400", style="position: fixed; bottom: 0px; left: 50px")
     div#pole
 
     canvas(id="viewport" class="pjs-layer-main" width="489" height="802" style="position: absolute; z-index: 1;")
 
     footer
       p Happy 4th ya&#39;ll
+
 
     script.
       //var ClientSpace = {};
@@ -191,7 +193,7 @@ html
           // add things to the world
           world.add([
               Physics.behavior('interactive', { el: renderer.el, moveThrottle: 20 })
-              ,Physics.behavior('constant-acceleration', {acc: { x: 0, y: 0.0012 }})
+              ,Physics.behavior('constant-acceleration', {acc: { x: 0, y: 0.0002 }})
               ,Physics.behavior('body-collision-detection')
               //,edgeBounce
           ]);
@@ -204,47 +206,47 @@ html
           // start the ticker
           Physics.util.ticker.start();
 
-          // var circleFireworks = [];
-          // // explosions:
-          // var viewWidth = window.innerWidth;
-          // var viewHeight = window.innerHeight;
-          // var ctx = document.getElementById("viewport").getContext("2d");
-          // function CreateFireworks() {
-          //     //Place the circles at the center
-          //     this.x = viewWidth/2;
-          //     this.y = viewHeight/2;
+          var circleFireworks = [];
+          // explosions:
+          var viewWidth = window.innerWidth;
+          var viewHeight = window.innerHeight;
+          var ctx = document.getElementById("viewport").getContext("2d");
+          function CreateFireworks() {
+              //Place the circles at the center
+              this.x = viewWidth/2;
+              this.y = viewHeight/2;
 
-          //     //Random radius between 2 and 6
-          //     this.radius = 2 + Math.random()*3; 
+              //Random radius between 2 and 6
+              this.radius = 2 + Math.random()*3; 
+              console.log(this.radius, 'creating')
+              //Random velocities between -10 and +10 (negative value so that they move in both directions)
+              this.vx = -10 + Math.random()*20;
+              this.vy = -10 + Math.random()*20;
               
-          //     //Random velocities between -10 and +10 (negative value so that they move in both directions)
-          //     this.vx = -10 + Math.random()*20;
-          //     this.vy = -10 + Math.random()*20;
-              
-          //     //Random colors
-          //     this.r = Math.round(Math.random())*255;
-          //     this.g = Math.round(Math.random())*255;
-          //     this.b = Math.round(Math.random())*255;
-          // }
+              //Random colors
+              this.r = Math.round(Math.random())*255;
+              this.g = Math.round(Math.random())*255;
+              this.b = Math.round(Math.random())*255;
+          }
 
-          // for (var i = 0; i < 200; i++) {
-          //     circleFireworks.push(new CreateFireworks());
-          // }
-          // for(var j = 0; j < circleFireworks.length; j++){
-          //     var c = circleFireworks[j];
+          for (var i = 0; i < 200; i++) {
+              circleFireworks.push(new CreateFireworks());
+          }
+          for(var j = 0; j < circleFireworks.length; j++){
+              var c = circleFireworks[j];
               
-          //     //Create the circleFireworks
-          //     ctx.beginPath();
-          //     // ctx.globalCompositeOperation = "lighter";
-          //     ctx.arc(c.x, c.y, c.radius, 0, Math.PI*2, false);
-          //     ctx.fillStyle = "rgba("+c.r+", "+c.g+", "+c.b+", 0.5)";
-          //     ctx.fill();
+              //Create the circleFireworks
+              ctx.beginPath();
+              // ctx.globalCompositeOperation = "lighter";
+              ctx.arc(c.x, c.y, c.radius, 0, Math.PI*2, false);
+              ctx.fillStyle = "rgba("+c.r+", "+c.g+", "+c.b+", 0.5)";
+              ctx.fill();
               
-          //     c.x += c.vx;
-          //     c.y += c.vy;
-          //     c.radius -= .05;
+              c.x += c.vx;
+              c.y += c.vy;
+              c.radius -= .05;
               
-          //     if(c.radius < 0)
-          //         circleFireworks[j] = new CreateFireworks();
-          // }
+              if(c.radius < 0)
+                  circleFireworks[j] = new CreateFireworks();
+          }
       });
