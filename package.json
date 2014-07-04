@@ -1,9 +1,9 @@
 {
-  "name": "kin",
+  "name": "Much-Wind",
   "version": "0.0.1",
   "dependencies": {
-    "express": "~3.4.4",
-    "socket.io": "~0.9.16",
+    "express": "~4",
+    "socket.io": "~1",
     "jade": "*",
     "stylus": "*",
     "mysql": "~2.0.0-alpha9",
