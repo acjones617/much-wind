@@ -1,10 +1,10 @@
 var server = io.connect('/');
 
 $(document).ready(function() {
-
   server.on('welcome', function(data) {
     console.log("welcomed murica", data);
   });
+  server.emit('connect');
 
   server.on('audio', function(data) {
     initialize(data);

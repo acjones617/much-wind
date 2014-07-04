@@ -1,7 +1,7 @@
 //
 // Tearable Cloth
 //
-Physics({ timestep: 8 },function (world) {
+Physics(function (world) {
 
     var viewWidth = window.innerWidth
         ,viewHeight = window.innerHeight

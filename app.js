@@ -145,7 +145,6 @@ middleware.setSettings(app, express);
 
 // render routes
 app.get('/', routes.renderClient);
-// app.get('*', routes.renderView);
 
 app.get('*', function(req,res){
   routes.renderView(req,res,visualizers);
@@ -164,10 +163,10 @@ app.use(function(err, req, res, next){
 //////////////////////////////////////////
 /// Client events
 //////////////////////////////////////////
-
+console.log('test');
 clients.on('connect', function (client) {
   state.connections += 1;
-
+  console.log('test');
   clients.emit("welcome", {
     id: client.id,
     message: "welcome!",
