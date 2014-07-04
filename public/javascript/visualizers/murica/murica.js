@@ -9,8 +9,8 @@ $(document).ready(function() {
       initialize(data);
     });
 
-    socket.emit('blow');
-    
+    socket.emit('blow', { intensityLevel: 10 });
+    window.socket = socket;
 
   });
 
