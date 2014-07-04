@@ -10,6 +10,9 @@ $(document).ready(function() {
     });
 
     socket.emit('blow', { intensityLevel: 10 });
+    socket.on('blowToIndividual', function(intensity) {
+      console.log('intensity: ', intensity);
+    });
     window.socket = socket;
 
   });

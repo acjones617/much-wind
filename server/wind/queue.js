@@ -6,7 +6,7 @@ module.exports = function() {
 
   queue.dequeue = function() {
     console.log('dequeuing');
-    this.splice(0,1);
+    return this.splice(0,1)[0];
   };
 
   queue.isEmpty = function() {
