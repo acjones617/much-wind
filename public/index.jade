@@ -162,28 +162,9 @@ html
               scratch.done();
               // higher priority than constraint resolution
           }, null, 100);
-          
-          projectile = Physics.body('circle', {
-              x: -20
-              ,y: viewHeight - 400
-              ,vx: 2
-              ,mass: 4
-              ,radius: 20
-              ,restitution: 0.99
-              ,angularVelocity: 0
-              ,label: 'bullet'
-              ,styles: {
-                  fillStyle: '#d33682'
-                  ,angleIndicator: '#751b4b'
-              }
-          });
 
           // add things to world
           world.add( cloth );
-
-          setTimeout(function() {
-            world.add( projectile );
-          }, 3000);
 
           world.add( rigidConstraints );
 
