@@ -17,7 +17,6 @@ module.exports = function(server) {
       for(var key in people.storage) {
         // Give back to the community
         people.get(key).emit('blowToIndividual', blowQueue.dequeue());
-
       }
     }
   }, 1000);
