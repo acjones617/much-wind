@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title MURICA
+    title &#39;MURICA
     meta(name="viewport", content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0")
     meta(name="apple-mobile-web-app-capable", content="yes")
     meta(name="mobile-web-app-capable", content="yes")
@@ -10,7 +10,6 @@ html
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css')
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css')
     link(rel='stylesheet', href='/stylesheets/client.css')
-    // link(href="/images/favicon.ico", rel="icon", type="image/x-icon")
 
     link(rel="icon", type="image/png", href="images/icon.png")
     script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
@@ -18,7 +17,6 @@ html
     script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js")
     script(src="//cdnjs.cloudflare.com/ajax/libs/pusher/2.1.6/pusher.min.js")
     script(src="//cdn.jsdelivr.net/physicsjs/0.6.0/physicsjs.full.min.js")
-    script(src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.min.js")
     script(src="./javascript/socket.io.js")
     script(src="./javascript/visualizers/murica/murica.js")
     script(src="./javascript/visualizers/murica/fireworks.js")
@@ -26,16 +24,15 @@ html
   body
     //- iframe(src="https://archive.org/embed/TheStarSpangledBannerInstrumental", width="500", height="30", frameborder="0", webkitallowfullscreen="true", mozallowfullscreen="true", allowfullscreen)
     header
-      h1.title MURICA
+      h1.title &#39;MURICA
+      iframe#audio(src="https://archive.org/embed/TheStarSpangledBannerInstrumental", width="200", height="30", frameborder="0", webkitallowfullscreen="true", mozallowfullscreen="true", allowfullscreen)
       button#boom boom
-
-    //- div#base
     div#pole
 
-    canvas(id="viewport" class=" pjs-layer-main" width="489" height="802" style="position: absolute; z-index: 1;")
+    canvas(id="viewport" class="pjs-layer-main" width="489" height="802" style="position: absolute; z-index: 1;")
 
     footer
-      p Happy 4th ya fools <(o_o)>
+      p Happy 4th ya&#39;ll
 
     script.
       //
@@ -95,13 +92,13 @@ html
           // the "cloth"
           var cloth = [];
           var colors = ['#BF1238', 'white'];
-          for ( var row = 0, l = 39; row < l; ++row ){
-              for ( var col = 0, lcol = 39; col < lcol; ++col ){
+          for ( var row = 0, l = 26; row < l; ++row ){
+              for ( var col = 0, lcol = 26; col < lcol; ++col ){
                   var fillStyle;
-                  if (row > 16 || col > 20) {
-                    fillStyle = colors[Math.floor(col/3) % 2];
+                  if (row > 10 || col > 13) {
+                    fillStyle = colors[Math.floor(col/2) % 2];
                   } else {
-                    if ((row > 0 && row < 15) && (col > 0 && col < 19) &&
+                    if ((row > 0 && row < 10) && (col > 0 && col < 13) &&
                       ((row % 2 === 1 && col % 4 === 2) || (row % 2 === 0 && col % 4 === 0))) {
                       fillStyle = 'white';
                     } else {
@@ -109,12 +106,11 @@ html
                     }
                   }
 
-
                   cloth.push(
                       Physics.body('circle', {
-                          y: 8 * col + (viewHeight + 20- l * 8) / 2
-                          ,x: 8 * row + (viewWidth/2 + 25)
-                          ,radius: 8
+                          y: 10 * col + (viewHeight + 20- l * 10) / 2
+                          ,x: 10 * row + (viewWidth/2 + 25)
+                          ,radius: 10
                           ,hidden: false,
                           styles: {
                               fillStyle: fillStyle
@@ -171,7 +167,7 @@ html
           // add some fun interaction
           var attractor = Physics.behavior('attractor', {
               order: 0,
-              strength: 0.002
+              strength: 0.001
           });
           window.attractor = attractor;
           window.world = world;
@@ -206,4 +202,48 @@ html
 
           // start the ticker
           Physics.util.ticker.start();
+
+          // var circleFireworks = [];
+          // // explosions:
+          // var viewWidth = window.innerWidth;
+          // var viewHeight = window.innerHeight;
+          // var ctx = document.getElementById("viewport").getContext("2d");
+          // function CreateFireworks() {
+          //     //Place the circles at the center
+          //     this.x = viewWidth/2;
+          //     this.y = viewHeight/2;
+
+          //     //Random radius between 2 and 6
+          //     this.radius = 2 + Math.random()*3; 
+              
+          //     //Random velocities between -10 and +10 (negative value so that they move in both directions)
+          //     this.vx = -10 + Math.random()*20;
+          //     this.vy = -10 + Math.random()*20;
+              
+          //     //Random colors
+          //     this.r = Math.round(Math.random())*255;
+          //     this.g = Math.round(Math.random())*255;
+          //     this.b = Math.round(Math.random())*255;
+          // }
+
+          // for (var i = 0; i < 200; i++) {
+          //     circleFireworks.push(new CreateFireworks());
+          // }
+          // for(var j = 0; j < circleFireworks.length; j++){
+          //     var c = circleFireworks[j];
+              
+          //     //Create the circleFireworks
+          //     ctx.beginPath();
+          //     // ctx.globalCompositeOperation = "lighter";
+          //     ctx.arc(c.x, c.y, c.radius, 0, Math.PI*2, false);
+          //     ctx.fillStyle = "rgba("+c.r+", "+c.g+", "+c.b+", 0.5)";
+          //     ctx.fill();
+              
+          //     c.x += c.vx;
+          //     c.y += c.vy;
+          //     c.radius -= .05;
+              
+          //     if(c.radius < 0)
+          //         circleFireworks[j] = new CreateFireworks();
+          // }
       });

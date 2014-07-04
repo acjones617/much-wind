@@ -18,6 +18,11 @@ header {
   position: absolute;
 }
 
+#audio {
+  top: 10px;
+  left: 10px;
+}
+
 .title {
   font-size: 3rem;
 }
@@ -56,6 +61,7 @@ header {
 
 #boom {
   color: black;
+  display: block;
 }
 
 footer {
