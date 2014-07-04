@@ -17,4 +17,6 @@ app.get( '/*', function( req, res, next ) {
   res.render(__dirname + '/public/index.jade');
 });
 
+require('./server/wind/init')(server);
+
 app.listen(process.env.PORT || 9000);
