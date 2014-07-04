@@ -123,13 +123,13 @@ html
 
                   if (col > 0){
                       // horizontal
-                      rigidConstraints.distanceConstraint(cloth[ lcol * row + col - 1 ], cloth[ lcol * row + col ], 0.4, 8);
+                      rigidConstraints.distanceConstraint(cloth[ lcol * row + col - 1 ], cloth[ lcol * row + col ], 0.45);
                   }
 
                   if (row > 0){
 
                       // vertical
-                      rigidConstraints.distanceConstraint(cloth[ lcol * row + col ], cloth[ lcol * (row - 1) + col ], 0.5, 8);
+                      rigidConstraints.distanceConstraint(cloth[ lcol * row + col ], cloth[ lcol * (row - 1) + col ], 0.5);
                   } else {
 
                       cloth[ lcol * row + col ].treatment = 'static';
@@ -162,35 +162,15 @@ html
               scratch.done();
               // higher priority than constraint resolution
           }, null, 100);
-          
-          projectile = Physics.body('circle', {
-              x: -20
-              ,y: viewHeight - 400
-              ,vx: 2
-              ,mass: 4
-              ,radius: 20
-              ,restitution: 0.99
-              ,angularVelocity: 0
-              ,label: 'bullet'
-              ,styles: {
-                  fillStyle: '#d33682'
-                  ,angleIndicator: '#751b4b'
-              }
-          });
-
           // add things to world
           world.add( cloth );
-
-          setTimeout(function() {
-            world.add( projectile );
-          }, 3000);
 
           world.add( rigidConstraints );
 
           // add some fun interaction
           var attractor = Physics.behavior('attractor', {
-              order: 8,
-              strength: 0.02
+              order: 0,
+              strength: 0.002
           });
           window.attractor = attractor;
           window.world = world;
@@ -207,10 +187,13 @@ html
               }
           });
 
+          // attractor.position({x: 400, y: 250});
+          // world.add(attractor);
+
           // add things to the world
           world.add([
               Physics.behavior('interactive', { el: renderer.el, moveThrottle: 20 })
-              ,Physics.behavior('constant-acceleration')
+              ,Physics.behavior('constant-acceleration', {acc: { x: 0, y: 0.0012 }})
               ,Physics.behavior('body-collision-detection')
               //,edgeBounce
           ]);
