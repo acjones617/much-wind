@@ -10,6 +10,7 @@ html
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css')
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css')
     link(rel='stylesheet', href='/stylesheets/client.css')
+    // link(href="/images/favicon.ico", rel="icon", type="image/x-icon")
 
     link(rel="icon", type="image/png", href="images/icon.png")
     script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
@@ -23,6 +24,7 @@ html
     script(src="./javascript/visualizers/murica/fireworks.js")
 
   body
+    //- iframe(src="https://archive.org/embed/TheStarSpangledBannerInstrumental", width="500", height="30", frameborder="0", webkitallowfullscreen="true", mozallowfullscreen="true", allowfullscreen)
     header
       h1.title MURICA
       button#boom boom
@@ -92,7 +94,7 @@ html
 
           // the "cloth"
           var cloth = [];
-          var colors = ['red', 'white'];
+          var colors = ['#BF1238', 'white'];
           for ( var row = 0, l = 39; row < l; ++row ){
               for ( var col = 0, lcol = 39; col < lcol; ++col ){
                   var fillStyle;
@@ -103,7 +105,7 @@ html
                       ((row % 2 === 1 && col % 4 === 2) || (row % 2 === 0 && col % 4 === 0))) {
                       fillStyle = 'white';
                     } else {
-                      fillStyle = 'blue';
+                      fillStyle = '#002469';
                     }
                   }
 
@@ -122,13 +124,13 @@ html
 
                   if (col > 0){
                       // horizontal
-                      rigidConstraints.distanceConstraint(cloth[ lcol * row + col - 1 ], cloth[ lcol * row + col ], 0.4, 8);
+                      rigidConstraints.distanceConstraint(cloth[ lcol * row + col - 1 ], cloth[ lcol * row + col ], 0.45);
                   }
 
                   if (row > 0){
 
                       // vertical
-                      rigidConstraints.distanceConstraint(cloth[ lcol * row + col ], cloth[ lcol * (row - 1) + col ], 0.5, 8);
+                      rigidConstraints.distanceConstraint(cloth[ lcol * row + col ], cloth[ lcol * (row - 1) + col ], 0.5);
                   } else {
 
                       cloth[ lcol * row + col ].treatment = 'static';
@@ -161,7 +163,6 @@ html
               scratch.done();
               // higher priority than constraint resolution
           }, null, 100);
-
           // add things to world
           world.add( cloth );
 
@@ -169,8 +170,8 @@ html
 
           // add some fun interaction
           var attractor = Physics.behavior('attractor', {
-              order: 8,
-              strength: 0.02
+              order: 0,
+              strength: 0.002
           });
           window.attractor = attractor;
           window.world = world;
@@ -187,10 +188,13 @@ html
               }
           });
 
+          // attractor.position({x: 400, y: 250});
+          // world.add(attractor);
+
           // add things to the world
           world.add([
               Physics.behavior('interactive', { el: renderer.el, moveThrottle: 20 })
-              ,Physics.behavior('constant-acceleration')
+              ,Physics.behavior('constant-acceleration', {acc: { x: 0, y: 0.0012 }})
               ,Physics.behavior('body-collision-detection')
               //,edgeBounce
           ]);

@@ -10,7 +10,6 @@ $(document).ready(function() {
 
     socket.emit('blow', { intensityLevel: 10 });
     socket.on('blowToIndividual', function(intensity) {
-      console.log('test');
       fire();
     });
     window.socket = socket;
