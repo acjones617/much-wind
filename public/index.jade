@@ -30,7 +30,7 @@ html
     canvas(id="viewport" class=" pjs-layer-main" width="489" height="802" style="position: absolute; z-index: 1;")
 
     footer
-      p Happy 4th ya fools
+      p Happy 4th ya fools <(o_o)>
 
     script.
       //var ClientSpace = {};
@@ -93,18 +93,30 @@ html
 
           // the "cloth"
           var cloth = [];
-          var colors = ['white', 'red'];
-          for ( var row = 0, l = 35; row < l; ++row ){
-              for ( var col = 0, lcol = 35; col < lcol; ++col ){
+          var colors = ['red', 'white'];
+          for ( var row = 0, l = 39; row < l; ++row ){
+              for ( var col = 0, lcol = 39; col < lcol; ++col ){
+                  var fillStyle;
+                  if (row > 16 || col > 20) {
+                    fillStyle = colors[Math.floor(col/3) % 2];
+                  } else {
+                    if ((row > 0 && row < 15) && (col > 0 && col < 19) &&
+                      ((row % 2 === 1 && col % 4 === 2) || (row % 2 === 0 && col % 4 === 0))) {
+                      fillStyle = 'white';
+                    } else {
+                      fillStyle = 'blue';
+                    }
+                  }
+
 
                   cloth.push(
                       Physics.body('circle', {
                           y: 8 * col + (viewWidth - l * 8) / 2
                           ,x: 8 * row + (viewHeight/2 - 200)
-                          ,radius: 4
-                          ,hidden: true,
+                          ,radius: 8
+                          ,hidden: false,
                           styles: {
-                              fillStyle: colors[ row % colors.length ]
+                              fillStyle: fillStyle
                           }
                       })
                   );
@@ -154,7 +166,7 @@ html
           // render
           var clothStyles = [
             { strokeStyle: '#2aa198', lineWidth: 1 },
-            { strokeStyle: '#FFFFFF', linewidth: 5 }
+            { strokeStyle: '#FFFFFF', linewidth: 0 }
           ];
           world.on('render', function( data ){
 
@@ -170,7 +182,7 @@ html
               ctx.strokeStyle = clothStyles[1].strokeStyle;
               ctx.lineWidth = clothStyles[1].lineWidth;
               for ( var i = 0, l = constraints.length; i < l; ++i ){
-                  ctx.strokeStyle = clothStyles[i % 2].strokeStyle;
+                ctx.strokeStyle = clothStyles[i % 2].strokeStyle;
 
                   c = constraints[ i ];
                   ctx.moveTo(c.bodyA.state.pos.x + c.bodyA.state.vel.x * t, c.bodyA.state.pos.y + c.bodyA.state.vel.y * t);
