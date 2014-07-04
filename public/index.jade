@@ -10,6 +10,7 @@ html
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css')
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css')
     link(rel='stylesheet', href='/stylesheets/client.css')
+    // link(href="/images/favicon.ico", rel="icon", type="image/x-icon")
 
     link(rel="icon", type="image/png", href="images/icon.png")
     script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
@@ -23,6 +24,7 @@ html
   body
     header
       h1.title MURICA
+      iframe(src="https://archive.org/embed/TheStarSpangledBannerInstrumental", width="500", height="30", frameborder="0", webkitallowfullscreen="true", mozallowfullscreen="true", allowfullscreen)
 
     //- div#base
     div#pole
@@ -93,7 +95,7 @@ html
 
           // the "cloth"
           var cloth = [];
-          var colors = ['red', 'white'];
+          var colors = ['#BF1238', 'white'];
           for ( var row = 0, l = 39; row < l; ++row ){
               for ( var col = 0, lcol = 39; col < lcol; ++col ){
                   var fillStyle;
@@ -104,7 +106,7 @@ html
                       ((row % 2 === 1 && col % 4 === 2) || (row % 2 === 0 && col % 4 === 0))) {
                       fillStyle = 'white';
                     } else {
-                      fillStyle = 'blue';
+                      fillStyle = '#002469';
                     }
                   }
 
