@@ -93,6 +93,7 @@ html
 
           // the "cloth"
           var cloth = [];
+          var colors = ['white', 'red'];
           for ( var row = 0, l = 35; row < l; ++row ){
               for ( var col = 0, lcol = 35; col < lcol; ++col ){
 
@@ -101,13 +102,16 @@ html
                           y: 8 * col + (viewWidth - l * 8) / 2
                           ,x: 8 * row + (viewHeight/2 - 200)
                           ,radius: 4
-                          ,hidden: true
+                          ,hidden: true,
+                          styles: {
+                              fillStyle: colors[ row % colors.length ]
+                          }
                       })
                   );
 
                   if (col > 0){
                       // horizontal
-                      rigidConstraints.distanceConstraint(cloth[ lcol * row + col - 1 ], cloth[ lcol * row + col ], 0.4);
+                      rigidConstraints.distanceConstraint(cloth[ lcol * row + col - 1 ], cloth[ lcol * row + col ], 0.4, 8);
                   }
 
                   if (row > 0){
@@ -125,7 +129,7 @@ html
 
               var constraints = rigidConstraints.getConstraints().distanceConstraints
                   ,c
-                  ,threshold = 8
+                  ,threshold = 60
                   ,scratch = Physics.scratchpad()
                   ,v = scratch.vector()
                   ,len
@@ -148,7 +152,10 @@ html
           }, null, 100);
 
           // render
-          var clothStyles = { strokeStyle: '#2aa198', lineWidth: 1 };
+          var clothStyles = [
+            { strokeStyle: '#2aa198', lineWidth: 1 },
+            { strokeStyle: '#FFFFFF', linewidth: 5 }
+          ];
           world.on('render', function( data ){
 
               var renderer = data.renderer
@@ -160,9 +167,10 @@ html
 
               // optimized line drawing
               ctx.beginPath();
-              ctx.strokeStyle = clothStyles.strokeStyle;
-              ctx.lineWidth = clothStyles.lineWidth;
+              ctx.strokeStyle = clothStyles[1].strokeStyle;
+              ctx.lineWidth = clothStyles[1].lineWidth;
               for ( var i = 0, l = constraints.length; i < l; ++i ){
+                  ctx.strokeStyle = clothStyles[i % 2].strokeStyle;
 
                   c = constraints[ i ];
                   ctx.moveTo(c.bodyA.state.pos.x + c.bodyA.state.vel.x * t, c.bodyA.state.pos.y + c.bodyA.state.vel.y * t);
