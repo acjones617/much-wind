@@ -106,7 +106,7 @@ var emitData = function (eventName, data) {
 // define socket.io spaces
 var conductor = io.of('/conductor');
 var conductor2 = io.of('/conductor2');
-var clients = io.of('/client');
+var clients = io.of('/');
 var dancer = io.of('/dancer');
 var audio = io.of('/audio');
 var opticalFlow = io.of('/opticalFlow');
@@ -161,140 +161,6 @@ app.use(function(err, req, res, next){
 /// EVENTS
 //////////////////////////////////////////
 
-webcamio.sockets.on('connection', function (socket) {
-  socket.on("config", function (obj) {
-    // oscServer = new osc.Server(obj.server.port, obj.server.host);
-    // oscClient = new osc.Client(obj.client.host, obj.client.port);
-
-    // oscClient.send('/status', socket.sessionId + ' connected');
-
-    oscServer.on('message', function(msg, rinfo) {
-      socket.emit("message", msg);
-      flock.emit("blob", msg);
-      particles.emit("blob", msg);
-    });
-  });
-  socket.on("message", function (obj) {
-    
-    oscClient.send(obj);
-  });
-});
-
-//////////////////////////////////////////
-/// Dancer / Motion Tracker events
-//////////////////////////////////////////
-
-dancer.on('connection', function (dancer) {
-  dancer.emit('welcome', {
-    message: "Connected for motion tracking.",
-    tracking: state.motionTrack
-  });
-  dancer.on('motionData', function (data) {
-    emitData('motionData', data);
-  });
-});
-
-//////////////////////////////////////////
-/// Conductor events
-//////////////////////////////////////////
-
-conductor.on('connection', function (conductor) {
-  state.resetMC();
-  clients.emit('reset');
-  dancer.emit('reset');
-  audio.emit('reset');
-
-  conductor.emit("welcome");
-
-  conductor.on('changeColor',function (data){
-    var clients = io.of('/client');
-    state.currentColor = data.color;
-    clients.emit('changeColor', data);
-    emitData('changeColor', data);
-  });
-
-  conductor.on('randomColor', function (data){
-    var clients = io.of('/client');
-    state.currentColor = '#000000';    // Set current to black in the case of random
-   clients.emit('randomColor', data);
-  });
-
-  conductor.on('toggleSound', function (data){
-    state.audio = data.sound;
-    audio.emit('toggleSound', data);
-  });
-
-  conductor.on('toggleMotion', function (data){
-    var dancer = io.of('/dancer');
-    if (data.motion) {
-      state.motionTrack = true;
-    } else if (!data.paint) {
-      state.motionTrack = false;
-    }
-    dancer.emit('toggleMotion', data);
-  });
-
-  conductor.on('toggleStrobe', function (data){
-    var clients = io.of('/client');
-    if (data.strobe) {
-      state.strobe = true;
-    } else {
-      state.strobe = false;
-    }
-    clients.emit('toggleStrobe');
-  });
-
-  conductor.on('audioLightControl', function (data){
-    var clients = io.of('/client'); 
-    if (data.audio) {
-      state.audioLights = true;
-    } else {
-      state.audioLights = false;
-    }
-  });
-
-  conductor.on('newFadeTime', function (data){
-    var clients = io.of('/client');
-    clients.emit('newFadeTime', data);
-    emitData('newFadeTime', data);
-  });
-});
-
-conductor2.on('connection', function(conductor2){
-  conductor2.on('newSeparationFactor', function (data){
-    emitData('newSeparationFactor', data);
-  });
-
-  conductor2.on('newCohesionFactor', function (data){
-    emitData('newCohesionFactor', data);
-  });
-
-  conductor2.on('newAlignmentFactor', function (data){
-    emitData('newAlignmentFactor', data);
-  });
-
-  conductor2.on('newSpeedFactor', function (data){
-    emitData('newSpeedFactor', data);
-  });
-});
-
-gridcontrol.on('connection', function(gridcontrol) {
-  console.log('controller connected');
-  gridcontrol.emit('welcome', 'connected to server' );
-
-  gridcontrol.on('tiltangle', function (tiltangle) {
-    // console.log('heard tilt angle event');
-    // console.log(tiltangle);
-    emitData('tiltangle', tiltangle);
-  });
-
-  gridcontrol.on('touchdata', function(touchdata) {
-    console.log('got touch data');
-    console.log(touchdata);
-  });
-});
-
-
 //////////////////////////////////////////
 /// Client events
 //////////////////////////////////////////
@@ -336,20 +202,6 @@ audio.on('connection', function (audio) {
   });
 });
 
-//////////////////////////////////////////
-/// Optical Flow
-//////////////////////////////////////////
-
-opticalFlow.on('connection', function (opticalFlow) {
-  console.log('opticalFlow connected');
-  opticalFlow.emit('welcome', { 
-    message: "Connected for optical flow tracking.",
-    tracking: state.opticalFlowTrack
-  });
-  opticalFlow.on('opticalFlowData', function (opticalFlowData) {
-    emitData('opticalFlow', opticalFlowData);
-  });
-});
 
 //////////////////////////////////////////
 /// Audience Motion Detection
