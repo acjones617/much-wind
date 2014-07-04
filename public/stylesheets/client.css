@@ -1,5 +1,6 @@
 body {
   background-color: black;
+  background: url('../images/stardust.png');
   color: white;
   margin: 0;
   padding: 0;
@@ -7,12 +8,34 @@ body {
 
 #base {
   width: 200px;
-  height: 200px;
+  min-height: 200px;
   position: fixed;
-  bottom: -23%;
+  box-shadow: 1px -70px 200px 83px yellow;
+  opacity: .6;
+  bottom: -36%;
   left: 45%;
   border-radius: 107px;
-  background-color: yellow;
+}
+
+#pole {
+  width: 10px;
+  height: 70%;
+  position: fixed;
+  bottom: 0;
+  left: 51%;
+  background-color: white;
+  border: 1px solid black;
+}
+#pole:before {
+  position: absolute;
+  top: -14px;
+  left: -5px;
+  display: block;
+  background-color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  content:'';
 }
 
 .title {
