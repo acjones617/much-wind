@@ -26,7 +26,6 @@ html
     header
       h1.title &#39;MURICA
       iframe#audio(src="https://archive.org/embed/TheStarSpangledBannerInstrumental", width="200", height="30", frameborder="0", webkitallowfullscreen="true", mozallowfullscreen="true", allowfullscreen)
-      button#boom boom
     div#pole
 
     canvas(id="viewport" class="pjs-layer-main" width="489" height="802" style="position: absolute; z-index: 1;")
@@ -108,7 +107,7 @@ html
 
                   cloth.push(
                       Physics.body('circle', {
-                          y: 10 * col + (viewHeight + 20- l * 10) / 2
+                          y: 10 * col + (viewHeight -200 - l * 10) / 2
                           ,x: 10 * row + (viewWidth/2 + 25)
                           ,radius: 10
                           ,hidden: false,
@@ -169,8 +168,6 @@ html
               order: 0,
               strength: 0.001
           });
-          window.attractor = attractor;
-          window.world = world;
           world.on({
               'interact:poke': function( pos ){
                   attractor.position( pos );
@@ -183,9 +180,6 @@ html
                   world.remove( attractor );
               }
           });
-
-          // attractor.position({x: 400, y: 250});
-          // world.add(attractor);
 
           // add things to the world
           world.add([
@@ -202,48 +196,4 @@ html
 
           // start the ticker
           Physics.util.ticker.start();
-
-          // var circleFireworks = [];
-          // // explosions:
-          // var viewWidth = window.innerWidth;
-          // var viewHeight = window.innerHeight;
-          // var ctx = document.getElementById("viewport").getContext("2d");
-          // function CreateFireworks() {
-          //     //Place the circles at the center
-          //     this.x = viewWidth/2;
-          //     this.y = viewHeight/2;
-
-          //     //Random radius between 2 and 6
-          //     this.radius = 2 + Math.random()*3; 
-              
-          //     //Random velocities between -10 and +10 (negative value so that they move in both directions)
-          //     this.vx = -10 + Math.random()*20;
-          //     this.vy = -10 + Math.random()*20;
-              
-          //     //Random colors
-          //     this.r = Math.round(Math.random())*255;
-          //     this.g = Math.round(Math.random())*255;
-          //     this.b = Math.round(Math.random())*255;
-          // }
-
-          // for (var i = 0; i < 200; i++) {
-          //     circleFireworks.push(new CreateFireworks());
-          // }
-          // for(var j = 0; j < circleFireworks.length; j++){
-          //     var c = circleFireworks[j];
-              
-          //     //Create the circleFireworks
-          //     ctx.beginPath();
-          //     // ctx.globalCompositeOperation = "lighter";
-          //     ctx.arc(c.x, c.y, c.radius, 0, Math.PI*2, false);
-          //     ctx.fillStyle = "rgba("+c.r+", "+c.g+", "+c.b+", 0.5)";
-          //     ctx.fill();
-              
-          //     c.x += c.vx;
-          //     c.y += c.vy;
-          //     c.radius -= .05;
-              
-          //     if(c.radius < 0)
-          //         circleFireworks[j] = new CreateFireworks();
-          // }
       });

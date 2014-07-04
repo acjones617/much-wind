@@ -7,9 +7,10 @@ body {
 }
 
 header {
-  position: fixed;
-  top: 25px;
-  right: 50px;
+  width: 200px;
+  margin-top: 20px;
+  margin-left: auto;
+  box-sizing: border-box;
 }
 
 .firework {
