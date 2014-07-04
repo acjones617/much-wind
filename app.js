@@ -4,6 +4,7 @@ var app = express();
 // var fs = require('fs');
 
 var path = require('path');
+var server = require('http').createServer(app);
 
 app.use('/images', express.static(path.resolve(__dirname + '/public/images')));
 app.use('/javascript', express.static(path.resolve(__dirname + '/public/javascript')));
@@ -17,6 +18,6 @@ app.get( '/*', function( req, res, next ) {
   res.render(__dirname + '/public/index.jade');
 });
 
-require('./server/wind/init')(server);
+require('./server/wind/wind')(server);
 
-app.listen(process.env.PORT || 9000);
+server.listen(process.env.PORT || 9000);

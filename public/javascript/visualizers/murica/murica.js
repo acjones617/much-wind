@@ -1,14 +1,19 @@
-var server = io.connect('/');
+// var socket = io.connect('/');
+var socket = io('/');
 
 $(document).ready(function() {
+  socket.on('connect', function() {
 
-  server.on('welcome', function(data) {
-    console.log("welcomed murica", data);
+    console.log('test');
+    socket.on('audio', function(data) {
+      initialize(data);
+    });
+
+    socket.emit('blow');
+    
+
   });
 
-  server.on('audio', function(data) {
-    initialize(data);
-  });
 
   // $('body').append($("canvas")).attr("id", "webGLCanvas");
   var canvas = document.createElement("canvas");
