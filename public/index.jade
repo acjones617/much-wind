@@ -17,12 +17,15 @@ html
     script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js")
     script(src="//cdnjs.cloudflare.com/ajax/libs/pusher/2.1.6/pusher.min.js")
     script(src="//cdn.jsdelivr.net/physicsjs/0.6.0/physicsjs.full.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.min.js")
     script(src="./javascript/socket.io.js")
     script(src="./javascript/visualizers/murica/murica.js")
+    script(src="./javascript/visualizers/murica/fireworks.js")
 
   body
     header
       h1.title MURICA
+      button#boom boom
 
     //- div#base
     div#pole
@@ -33,10 +36,6 @@ html
       p Happy 4th ya fools <(o_o)>
 
     script.
-      //var ClientSpace = {};
-      $('body').on('touchmove', '.scrollable', function(e) {
-        e.stopPropagation();
-      });
       //
       // Tearable Cloth
       //

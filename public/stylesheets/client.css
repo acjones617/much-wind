@@ -6,6 +6,22 @@ body {
   padding: 0;
 }
 
+header {
+  position: fixed;
+  top: 25px;
+  right: 50px;
+}
+
+.firework {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+}
+
+.title {
+  font-size: 3rem;
+}
+
 #base {
   width: 200px;
   min-height: 200px;
@@ -20,7 +36,7 @@ body {
 #pole {
   width: 10px;
   height: 70%;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 51%;
   background-color: white;
@@ -38,11 +54,8 @@ body {
   content:'';
 }
 
-.title {
-  position: fixed;
-  top: 25px;
-  right: 50px;
-  font-size: 3rem;
+#boom {
+  color: black;
 }
 
 footer {
