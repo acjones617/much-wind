@@ -26,18 +26,46 @@ html
 
     // img(src="images/fireworks.gif", width="800", height="400", style="position: fixed; bottom: 0px; left: 50px")
     div#pole
+    // button#fireworks firework
 
     canvas(id="viewport" class="pjs-layer-main" width="489" height="802" style="position: absolute; z-index: 1;")
 
     footer
       p Happy 4th ya&#39;ll
 
+    // div#firework
 
     script.
       //var ClientSpace = {};
+      var fireX = 200;
+      var fireY = 0;
+
       $('body').on('touchmove', '.scrollable', function(e) {
         e.stopPropagation();
       });
+
+      var fire = function(fireX, fireY, domEl) {
+        setTimeout(function() {
+          if (fireX <= 222) {
+            fireX += 0.3;
+            fireY = 300-(fireX-220)*(fireX-220);
+            // $('#firework').animate({"bottom": fireY+'px'});
+            domEl.css({
+              position: 'absolute',
+              left: fireX,
+              bottom: fireY
+            });
+            fire(fireX, fireY, domEl);
+          }
+        }, 50)
+      }
+      $('#fireworks').on('click', function(e) {
+        console.log('firework???');
+        e.stopPropagation();
+        // var circle = $('body').append('div.firework')
+        fire(200, 0, $('#firework'));
+      });
+
       //
       // Tearable Cloth
       //
@@ -205,48 +233,4 @@ html
 
           // start the ticker
           Physics.util.ticker.start();
-
-          var circleFireworks = [];
-          // explosions:
-          var viewWidth = window.innerWidth;
-          var viewHeight = window.innerHeight;
-          var ctx = document.getElementById("viewport").getContext("2d");
-          function CreateFireworks() {
-              //Place the circles at the center
-              this.x = viewWidth/2;
-              this.y = viewHeight/2;
-
-              //Random radius between 2 and 6
-              this.radius = 2 + Math.random()*3; 
-              console.log(this.radius, 'creating')
-              //Random velocities between -10 and +10 (negative value so that they move in both directions)
-              this.vx = -10 + Math.random()*20;
-              this.vy = -10 + Math.random()*20;
-              
-              //Random colors
-              this.r = Math.round(Math.random())*255;
-              this.g = Math.round(Math.random())*255;
-              this.b = Math.round(Math.random())*255;
-          }
-
-          for (var i = 0; i < 200; i++) {
-              circleFireworks.push(new CreateFireworks());
-          }
-          for(var j = 0; j < circleFireworks.length; j++){
-              var c = circleFireworks[j];
-              
-              //Create the circleFireworks
-              ctx.beginPath();
-              // ctx.globalCompositeOperation = "lighter";
-              ctx.arc(c.x, c.y, c.radius, 0, Math.PI*2, false);
-              ctx.fillStyle = "rgba("+c.r+", "+c.g+", "+c.b+", 0.5)";
-              ctx.fill();
-              
-              c.x += c.vx;
-              c.y += c.vy;
-              c.radius -= .05;
-              
-              if(c.radius < 0)
-                  circleFireworks[j] = new CreateFireworks();
-          }
       });
