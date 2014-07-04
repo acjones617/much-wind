@@ -54,6 +54,7 @@ Physics(function (world) {
 
     // the "cloth"
     var cloth = [];
+    window.cloth = cloth;
     for ( var row = 0, l = 35; row < l; ++row ){
         for ( var col = 0, lcol = 35; col < lcol; ++col ){
 
@@ -63,6 +64,9 @@ Physics(function (world) {
                     ,y: 8 * row + (viewHeight/2 - 200)
                     ,radius: 4
                     ,hidden: true
+                    ,wave: function(intensity) {
+                        this.state.angular.vel = speed;
+                    }
                 })
             );
 

@@ -17,14 +17,17 @@ html
     script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js")
     script(src="//cdnjs.cloudflare.com/ajax/libs/pusher/2.1.6/pusher.min.js")
     script(src="//cdn.jsdelivr.net/physicsjs/0.6.0/physicsjs.full.min.js")
+    script(src="./javascript/socket.io.js")
     script(src="./javascript/visualizers/murica/murica.js")
+    script(src="./javascript/visualizers/murica/fireworks.js")
 
   body
+    //- iframe(src="https://archive.org/embed/TheStarSpangledBannerInstrumental", width="500", height="30", frameborder="0", webkitallowfullscreen="true", mozallowfullscreen="true", allowfullscreen)
     header
       h1.title &#39;MURICA
       iframe(src="https://archive.org/embed/TheStarSpangledBannerInstrumental", width="500", height="30", frameborder="0", webkitallowfullscreen="true", mozallowfullscreen="true", allowfullscreen)
 
-    // img(src="images/fireworks.gif", width="800", height="400", style="position: fixed; bottom: 0px; left: 50px")
+    img(src="images/fireworks.gif", width="800", height="400", style="position: fixed; bottom: 0px; left: 50px")
     div#pole
     // button#fireworks firework
 
@@ -36,35 +39,35 @@ html
     // div#firework
 
     script.
-      //var ClientSpace = {};
-      var fireX = 200;
-      var fireY = 0;
+      // //var ClientSpace = {};
+      // var fireX = 200;
+      // var fireY = 0;
 
-      $('body').on('touchmove', '.scrollable', function(e) {
-        e.stopPropagation();
-      });
+      // $('body').on('touchmove', '.scrollable', function(e) {
+      //   e.stopPropagation();
+      // });
 
-      var fire = function(fireX, fireY, domEl) {
-        setTimeout(function() {
-          if (fireX <= 222) {
-            fireX += 0.3;
-            fireY = 300-(fireX-220)*(fireX-220);
-            // $('#firework').animate({"bottom": fireY+'px'});
-            domEl.css({
-              position: 'absolute',
-              left: fireX,
-              bottom: fireY
-            });
-            fire(fireX, fireY, domEl);
-          }
-        }, 50)
-      }
-      $('#fireworks').on('click', function(e) {
-        console.log('firework???');
-        e.stopPropagation();
-        // var circle = $('body').append('div.firework')
-        fire(200, 0, $('#firework'));
-      });
+      // var fire = function(fireX, fireY, domEl) {
+      //   setTimeout(function() {
+      //     if (fireX <= 222) {
+      //       fireX += 0.3;
+      //       fireY = 300-(fireX-220)*(fireX-220);
+      //       // $('#firework').animate({"bottom": fireY+'px'});
+      //       domEl.css({
+      //         position: 'absolute',
+      //         left: fireX,
+      //         bottom: fireY
+      //       });
+      //       fire(fireX, fireY, domEl);
+      //     }
+      //   }, 50)
+      // }
+      // $('#fireworks').on('click', function(e) {
+      //   console.log('firework???');
+      //   e.stopPropagation();
+      //   // var circle = $('body').append('div.firework')
+      //   fire(200, 0, $('#firework'));
+      // });
 
       //
       // Tearable Cloth
@@ -139,7 +142,7 @@ html
 
                   cloth.push(
                       Physics.body('circle', {
-                          y: 10 * col + (viewHeight + 20- l * 10) / 2
+                          y: 10 * col + (viewHeight -200 - l * 10) / 2
                           ,x: 10 * row + (viewWidth/2 + 25)
                           ,radius: 10
                           ,hidden: false,
@@ -200,8 +203,6 @@ html
               order: 0,
               strength: 0.001
           });
-          window.attractor = attractor;
-          window.world = world;
           world.on({
               'interact:poke': function( pos ){
                   attractor.position( pos );
@@ -214,9 +215,6 @@ html
                   world.remove( attractor );
               }
           });
-
-          // attractor.position({x: 400, y: 250});
-          // world.add(attractor);
 
           // add things to the world
           world.add([
